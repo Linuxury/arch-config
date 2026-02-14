@@ -1,0 +1,18 @@
+# Lua compiled files
+*.luac
+
+# Logs
+*.log
+
+# Backups
+*.bak
+
+# Snapper snapshots (if ever inside repo)
+.snapshots/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local overrides (optional)
+local.lua
