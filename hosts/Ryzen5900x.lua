@@ -28,7 +28,7 @@ return {
 
     default_apps = {
         browser = "firefox",
-        terminal = "kitty",
+        terminal = "ghostty",
         text_editor = "zed",
         file_manager = "com.system76.CosmicFiles",
     },
