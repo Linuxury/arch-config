@@ -44,6 +44,7 @@ install_aur() {
 
 # Conservative list of common COSMIC package names/candidates.
 candidates=(
+  cosmic-greeter
   cosmic-session
   cosmic-desktop
   cosmic-comp
@@ -77,6 +78,10 @@ if [[ "$installed" -eq 0 ]]; then
   fi
 else
   echo "COSMIC setup step complete."
+fi
+
+if [[ -x "${SCRIPT_DIR}/configure-greetd-cosmic.sh" ]]; then
+  "${SCRIPT_DIR}/configure-greetd-cosmic.sh"
 fi
 
 if [[ -n "${REPORT_FILE}" ]]; then

@@ -22,6 +22,11 @@ sudo pacman -S greetd
 sudo systemctl enable --now greetd
 ```
 
+To configure greetd to launch `cosmic-greeter` automatically at boot:
+```bash
+./scripts/configure-greetd-cosmic.sh
+```
+
 You can also use SDDM/GDM depending on available COSMIC session files.
 
 ## 4. Session validation
@@ -36,4 +41,3 @@ loginctl show-session $(loginctl | awk '/tty|seat|pts/{print $1; exit}') -p Type
 systemctl --user status xdg-desktop-portal.service
 journalctl -b -p warning --no-pager | tail -n 80
 ```
-
