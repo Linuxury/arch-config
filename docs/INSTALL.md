@@ -55,7 +55,7 @@ From project root:
 
 This wizard asks section-by-section with a short description and lets you choose what to install.
 It also detects hardware (chassis/battery/fingerprint hints), shows what was detected, and proposes laptop/desktop defaults that you can override.
-Wizard execution order is dependency-safe: `core -> repos -> services -> userland`.
+Wizard execution order is dependency-safe: `repos -> core -> services -> userland`.
 If you pick COSMIC in userland without repos, it can suggest enabling repo layer automatically.
 At the end, it prints a stricter summary with section status plus installed/unavailable counts for dynamic package groups (apps/COSMIC).
 
@@ -72,8 +72,8 @@ Preview mode (no changes applied):
 
 Layer scripts (for advanced/custom flows):
 ```bash
-./scripts/install-core.sh zen-lts
 ./scripts/setup-repos.sh
+./scripts/install-core.sh zen-lts
 ./scripts/install-services.sh
 ./scripts/install-userland.sh
 ./scripts/postflight-check.sh

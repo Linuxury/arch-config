@@ -40,8 +40,17 @@ print_section() {
   local title="$1"
   local desc="$2"
   echo
-  echo "== ${title} =="
+  echo "=================================================="
+  echo " ${title}"
+  echo "=================================================="
   echo "${desc}"
+  echo
+}
+
+print_step_header() {
+  local title="$1"
+  echo
+  echo "---------------- ${title} ----------------"
 }
 
 ask_yes_no() {
@@ -69,10 +78,19 @@ ask_yes_no() {
 choose_kernel_profile() {
   echo
   echo "Kernel profiles:"
-  echo "  1) zen-lts      (recommended: zen main + lts fallback)"
-  echo "  2) mainline-zen (rc/mainline main + zen fallback)"
-  echo "  3) zen-stable   (zen main + stable fallback)"
-  echo "  4) none         (skip kernel package changes)"
+  echo
+  echo "  1) zen-lts"
+  echo "     recommended: zen main + lts fallback"
+  echo
+  echo "  2) mainline-zen"
+  echo "     rc/mainline main + zen fallback"
+  echo
+  echo "  3) zen-stable"
+  echo "     zen main + stable fallback"
+  echo
+  echo "  4) none"
+  echo "     skip kernel package changes"
+  echo
 
   while true; do
     read -r -p "Choose profile [1-4] (default 1): " choice || true
@@ -192,7 +210,10 @@ create_checkpoint() {
 
 print_report() {
   echo
-  echo "== Install Summary =="
+  echo "=================================================="
+  echo " Install Summary"
+  echo "=================================================="
+  echo
   for sec in core repos services userland postflight; do
     s="$(awk -F'|' -v sec="$sec" '$1=="section" && $3==sec {print $2; exit}' "${REPORT_FILE}")"
     if [[ -z "$s" ]]; then
@@ -244,6 +265,7 @@ else
 fi
 
 USE_LAPTOP_DEFAULT="${IS_LAPTOP}"
+print_step_header "Profile Selection"
 if ask_yes_no "Use these defaults as starting point?" yes; then
   :
 else
@@ -282,50 +304,69 @@ if [[ "${USE_LAPTOP_DEFAULT}" == "yes" ]]; then
 fi
 
 print_section "Core Layer" "Base OS stack: kernel, network/audio/session baseline, microcode/GPU, bootloader config, and Btrfs snapshots."
+print_step_header "Core Options"
 if ask_yes_no "Install core layer?" yes; then
   section_core="yes"
   choose_kernel_profile
+  echo
   if ask_yes_no "Install CPU microcode?" "${opt_microcode}"; then opt_microcode="yes"; else opt_microcode="no"; fi
+  echo
   if ask_yes_no "Install GPU drivers?" "${opt_gpu}"; then opt_gpu="yes"; else opt_gpu="no"; fi
+  echo
   if ask_yes_no "Configure systemd-boot quiet default + fallback?" "${opt_boot}"; then opt_boot="yes"; else opt_boot="no"; fi
+  echo
   if ask_yes_no "Configure Btrfs snapshots (Snapper) when root is Btrfs?" "${opt_snapshots}"; then opt_snapshots="yes"; else opt_snapshots="no"; fi
 fi
 
 print_section "Repo Layer" "Repository/AUR setup: Chaotic-AUR and paru."
+print_step_header "Repo Options"
 if ask_yes_no "Install repo layer?" yes; then
   section_repos="yes"
+  echo
   if ask_yes_no "Configure Chaotic-AUR?" "${opt_chaotic}"; then opt_chaotic="yes"; else opt_chaotic="no"; fi
+  echo
   if ask_yes_no "Install paru?" "${opt_paru}"; then opt_paru="yes"; else opt_paru="no"; fi
 fi
 
 print_section "Service Layer" "System services: reflector, ufw, bluetooth, fstrim, sshd, tailscale, power profiles."
+print_step_header "Service Options"
 if ask_yes_no "Install service layer?" yes; then
   section_services="yes"
+  echo
   if ask_yes_no "Enable reflector periodic mirror refresh?" "${opt_reflector_timer}"; then opt_reflector_timer="yes"; else opt_reflector_timer="no"; fi
+  echo
   if ask_yes_no "Enable firmware updates (fwupd)?" "${opt_fwupd}"; then opt_fwupd="yes"; else opt_fwupd="no"; fi
+  echo
   if ask_yes_no "Enable zram swap profile?" "${opt_zram}"; then opt_zram="yes"; else opt_zram="no"; fi
+  echo
   if ask_yes_no "Apply SSH hardening (root login off, key-only when keys are present)?" "${opt_ssh_hardening}"; then opt_ssh_hardening="yes"; else opt_ssh_hardening="no"; fi
+  echo
   if ask_yes_no "Enable laptop extras (fingerprint + laptop power helpers)?" "${opt_laptop}"; then opt_laptop="yes"; else opt_laptop="no"; fi
 fi
 
 print_section "Userland Layer" "Desktop and user tools: curated apps, development toolchain, gaming stack, and optional COSMIC packages."
+print_step_header "Userland Options"
 if ask_yes_no "Install userland layer?" yes; then
   section_userland="yes"
+  echo
   echo "Apps bundle includes browser/mail/editor/productivity + utilities:"
   echo "  firefox, thunderbird, helix, flatpak, topgrade, disk utility, media viewers,"
   echo "  nerd fonts, and best-effort candidates for OnlyOffice/Zed (+ some AUR extras if paru exists)."
   if ask_yes_no "Install apps bundle?" "${opt_apps}"; then opt_apps="yes"; else opt_apps="no"; fi
 
+  echo
   echo "Development bundle includes:"
   echo "  Python toolchain (python/pip/virtualenv/pipx/uv) + Rust toolchain (rustup stable)"
   echo "  plus build/debug tools (base-devel, cmake, clang, lldb, pkgconf)."
   if ask_yes_no "Install development bundle?" "${opt_dev}"; then opt_dev="yes"; else opt_dev="no"; fi
 
+  echo
   echo "Gaming bundle includes:"
   echo "  steam, lutris, gamemode, mangohud/goverlay, wine-staging/winetricks,"
   echo "  gamescope, and 32-bit Vulkan/Mesa runtime dependencies."
   if ask_yes_no "Install gaming bundle?" "${opt_gaming}"; then opt_gaming="yes"; else opt_gaming="no"; fi
 
+  echo
   echo "COSMIC bundle uses available repo/AUR package names (best effort):"
   echo "  cosmic-session, cosmic-desktop, cosmic-comp, cosmic-launcher, cosmic-settings,"
   echo "  cosmic-files, cosmic-terminal, cosmic-store, etc."
@@ -335,6 +376,7 @@ fi
 # Dependency safety: userland COSMIC/AUR flow works best with repo layer.
 if [[ "${section_userland}" == "yes" && "${opt_cosmic}" == "yes" && "${section_repos}" != "yes" ]]; then
   print_section "Dependency Hint" "COSMIC/AUR installs are more reliable with repo layer (Chaotic-AUR + paru)."
+  print_step_header "Dependency Choice"
   if ask_yes_no "Enable repo layer automatically to avoid missing dependencies?" yes; then
     section_repos="yes"
     opt_chaotic="yes"
@@ -342,7 +384,19 @@ if [[ "${section_userland}" == "yes" && "${opt_cosmic}" == "yes" && "${section_r
   fi
 fi
 
+# Dependency safety: mainline-zen kernel needs repos that provide linux-mainline.
+if [[ "${section_core}" == "yes" && "${KERNEL_PROFILE}" == "mainline-zen" && "${section_repos}" != "yes" ]]; then
+  print_section "Dependency Hint" "mainline-zen needs a repo that provides linux-mainline (for example Chaotic-AUR)."
+  print_step_header "Dependency Choice"
+  if ask_yes_no "Enable repo layer automatically before core install?" yes; then
+    section_repos="yes"
+    opt_chaotic="yes"
+    opt_paru="yes"
+  fi
+fi
+
 print_section "Summary" "Review selected layers before execution."
+print_step_header "Selected Actions"
 echo "Core:      ${section_core} (kernel=${KERNEL_PROFILE}, microcode=${opt_microcode}, gpu=${opt_gpu}, boot=${opt_boot}, snapshots=${opt_snapshots})"
 echo "Repos:     ${section_repos} (chaotic=${opt_chaotic}, paru=${opt_paru})"
 echo "Services:  ${section_services} (laptop extras=${opt_laptop}, reflector timer=${opt_reflector_timer}, fwupd=${opt_fwupd}, zram=${opt_zram}, ssh hardening=${opt_ssh_hardening})"
@@ -353,10 +407,21 @@ if [[ "${section_userland}" == "yes" ]]; then
   [[ "${opt_gaming}" == "yes" ]] && echo "  - gaming: Steam/Lutris/Wine/Gamescope with Vulkan runtime deps"
   [[ "${opt_cosmic}" == "yes" ]] && echo "  - cosmic: install available COSMIC packages from repo/AUR candidates"
 fi
+echo
 if ask_yes_no "Run postflight validation at the end?" "${opt_postflight}"; then opt_postflight="yes"; else opt_postflight="no"; fi
 
+print_step_header "Execution"
 if ask_yes_no "Proceed with selected actions now?" yes; then
   create_checkpoint "pre-install-wizard"
+
+  if [[ "${section_repos}" == "yes" ]]; then
+    run_step repos env \
+      USE_CHAOTIC=$([[ "${opt_chaotic}" == "yes" ]] && echo 1 || echo 0) \
+      INSTALL_PARU=$([[ "${opt_paru}" == "yes" ]] && echo 1 || echo 0) \
+      "${SCRIPT_DIR}/setup-repos.sh"
+  else
+    section_status "skipped" "repos"
+  fi
 
   if [[ "${section_core}" == "yes" ]]; then
     run_step core env \
@@ -367,15 +432,6 @@ if ask_yes_no "Proceed with selected actions now?" yes; then
       "${SCRIPT_DIR}/install-core.sh" "${KERNEL_PROFILE}"
   else
     section_status "skipped" "core"
-  fi
-
-  if [[ "${section_repos}" == "yes" ]]; then
-    run_step repos env \
-      USE_CHAOTIC=$([[ "${opt_chaotic}" == "yes" ]] && echo 1 || echo 0) \
-      INSTALL_PARU=$([[ "${opt_paru}" == "yes" ]] && echo 1 || echo 0) \
-      "${SCRIPT_DIR}/setup-repos.sh"
-  else
-    section_status "skipped" "repos"
   fi
 
   if [[ "${section_services}" == "yes" ]]; then

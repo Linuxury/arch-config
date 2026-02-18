@@ -108,11 +108,11 @@ echo "Detected laptop profile for service layer: ${is_laptop}"
 
 create_checkpoint "pre-postinstall-cosmic"
 
+run_step repos env USE_CHAOTIC=1 INSTALL_PARU=1 "${SCRIPT_DIR}/setup-repos.sh"
+
 run_step core env \
   INSTALL_MICROCODE=1 INSTALL_GPU=1 CONFIGURE_BOOT=1 CONFIGURE_SNAPSHOTS=1 \
   "${SCRIPT_DIR}/install-core.sh" "${KERNEL_PROFILE}"
-
-run_step repos env USE_CHAOTIC=1 INSTALL_PARU=1 "${SCRIPT_DIR}/setup-repos.sh"
 
 run_step services env \
   ENABLE_LAPTOP="${is_laptop}" ENABLE_REFLECTOR_TIMER=1 ENABLE_FWUPD=1 ENABLE_ZRAM=1 ENABLE_SSH_HARDENING=1 \
