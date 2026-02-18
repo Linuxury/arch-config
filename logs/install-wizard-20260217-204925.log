@@ -1,0 +1,368 @@
+Log file: /home/linuxury/Documents/Arch Linux/scripts/../logs/install-wizard-20260217-204925.log
+Dry run: 0
+/home/linuxury/Documents/Arch Linux/scripts/install-wizard.sh: line 113: rg: command not found
+/home/linuxury/Documents/Arch Linux/scripts/install-wizard.sh: line 116: rg: command not found
+
+== Hardware Detection ==
+Detected hardware profile and proposed defaults.
+Detected chassis: desktop
+Battery detected: no
+Fingerprint device hint: no
+Proposed profile: desktop
+Use these defaults as starting point? [Y/n]: 
+== Core Layer ==
+Base OS stack: kernel, network/audio/session baseline, microcode/GPU, bootloader config, and Btrfs snapshots.
+Install core layer? [Y/n]: 
+Kernel profiles:
+  1) zen-lts      (recommended: zen main + lts fallback)
+  2) mainline-zen (rc/mainline main + zen fallback)
+  3) zen-stable   (zen main + stable fallback)
+  4) none         (skip kernel package changes)
+Choose profile [1-4] (default 1): Install CPU microcode? [Y/n]: Install GPU drivers? [Y/n]: Configure systemd-boot quiet default + fallback? [Y/n]: Configure Btrfs snapshots (Snapper) when root is Btrfs? [Y/n]: 
+== Repo Layer ==
+Repository/AUR setup: Chaotic-AUR and paru.
+Install repo layer? [Y/n]: Configure Chaotic-AUR? [Y/n]: Install paru? [Y/n]: 
+== Service Layer ==
+System services: reflector, ufw, bluetooth, fstrim, sshd, tailscale, power profiles.
+Install service layer? [Y/n]: Enable reflector periodic mirror refresh? [Y/n]: Enable firmware updates (fwupd)? [Y/n]: Enable zram swap profile? [Y/n]: Apply SSH hardening (root login off, key-only when keys are present)? [Y/n]: Enable laptop extras (fingerprint + laptop power helpers)? [y/N]: 
+== Userland Layer ==
+Desktop and user tools: curated apps, development toolchain, gaming stack, and optional COSMIC packages.
+Install userland layer? [Y/n]: Apps bundle includes browser/mail/editor/productivity + utilities:
+  firefox, thunderbird, helix, flatpak, topgrade, disk utility, media viewers,
+  nerd fonts, and best-effort candidates for OnlyOffice/Zed (+ some AUR extras if paru exists).
+Install apps bundle? [Y/n]: Development bundle includes:
+  Python toolchain (python/pip/virtualenv/pipx/uv) + Rust toolchain (rustup stable)
+  plus build/debug tools (base-devel, cmake, clang, lldb, pkgconf).
+Install development bundle? [Y/n]: Gaming bundle includes:
+  steam, lutris, gamemode, mangohud/goverlay, wine-staging/winetricks,
+  gamescope, and 32-bit Vulkan/Mesa runtime dependencies.
+Install gaming bundle? [Y/n]: COSMIC bundle uses available repo/AUR package names (best effort):
+  cosmic-session, cosmic-desktop, cosmic-comp, cosmic-launcher, cosmic-settings,
+  cosmic-files, cosmic-terminal, cosmic-store, etc.
+Install COSMIC packages where available? [Y/n]: 
+== Summary ==
+Review selected layers before execution.
+Core:      yes (kernel=mainline-zen, microcode=yes, gpu=yes, boot=yes, snapshots=yes)
+Repos:     yes (chaotic=yes, paru=yes)
+Services:  yes (laptop extras=no, reflector timer=yes, fwupd=yes, zram=yes, ssh hardening=yes)
+Userland:  yes (apps=yes, dev=yes, gaming=yes, cosmic=yes)
+  - apps: browser/mail/editor/productivity utilities (+ best-effort OnlyOffice/Zed/AUR extras)
+  - dev: Python + Rust toolchains with base build/debug tooling
+  - gaming: Steam/Lutris/Wine/Gamescope with Vulkan runtime deps
+  - cosmic: install available COSMIC packages from repo/AUR candidates
+Run postflight validation at the end? [Y/n]: Proceed with selected actions now? [Y/n]: [RUN] core
+:: Synchronizing package databases...
+ core downloading...
+ extra downloading...
+ multilib downloading...
+ chaotic-aur downloading...
+:: Starting full system upgrade...
+ there is nothing to do
+warning: linux-mainline-6.19rc8-1 is up to date -- skipping
+warning: linux-mainline-headers-6.19rc8-1 is up to date -- skipping
+warning: linux-zen-6.18.9.zen1-2 is up to date -- skipping
+warning: linux-zen-headers-6.18.9.zen1-2 is up to date -- skipping
+ there is nothing to do
+warning: networkmanager-1.54.3-1 is up to date -- skipping
+warning: pipewire-1:1.4.10-2 is up to date -- skipping
+warning: pipewire-pulse-1:1.4.10-2 is up to date -- skipping
+warning: wireplumber-0.5.13-1 is up to date -- skipping
+warning: xdg-desktop-portal-1.20.3-2 is up to date -- skipping
+warning: xdg-desktop-portal-gtk-1.15.3-1 is up to date -- skipping
+warning: greetd-0.10.3-1 is up to date -- skipping
+warning: systemd-boot-pacman-hook-3-1.4 is up to date -- skipping
+warning: snapper-0.13.0-2 is up to date -- skipping
+warning: snap-pac-3.0.1-3 is up to date -- skipping
+warning: btrfs-assistant-2.2-4 is up to date -- skipping
+warning: fish-4.5.0-2 is up to date -- skipping
+warning: fastfetch-2.59.0-1 is up to date -- skipping
+warning: starship-1.24.2-2 is up to date -- skipping
+ there is nothing to do
+warning: ghostty-1.2.3-3 is up to date -- skipping
+ there is nothing to do
+Display manager already configured (/usr/lib/systemd/system/cosmic-greeter.service). Skipping greetd enable.
+warning: amd-ucode-20260110-1 is up to date -- skipping
+ there is nothing to do
+Installed AMD microcode package: amd-ucode
+/home/linuxury/Documents/Arch Linux/scripts/install-gpu-drivers.sh: line 15: rg: command not found
+/home/linuxury/Documents/Arch Linux/scripts/install-gpu-drivers.sh: line 40: rg: command not found
+/home/linuxury/Documents/Arch Linux/scripts/install-gpu-drivers.sh: line 45: rg: command not found
+/home/linuxury/Documents/Arch Linux/scripts/install-gpu-drivers.sh: line 50: rg: command not found
+Could not auto-detect a supported GPU from lspci output.
+Detected lines:
+<none>
+Run manually with: ./scripts/install-gpu-drivers.sh intel|amdgpu|nvidia|nvidia-open|all-open
+warning: mesa-utils-9.0.0-7 is up to date -- skipping
+warning: vulkan-tools-1.4.341.0-1 is up to date -- skipping
+ there is nothing to do
+GPU setup step complete. Reboot is recommended.
+Configured systemd-boot entries:
+  default:   arch.conf (linux-mainline)
+  fallback:  arch-fallback.conf (linux-zen)
+loader.conf set with hidden/no-wait menu (timeout 0) and editor disabled.
+warning: snapper-0.13.0-2 is up to date -- skipping
+warning: snap-pac-3.0.1-3 is up to date -- skipping
+warning: btrfs-assistant-2.2-4 is up to date -- skipping
+ there is nothing to do
+Snapper configured for / with timeline + cleanup timers enabled.
+snap-pac will auto-create snapshots around pacman transactions.
+Tip: view snapshots with 'sudo snapper -c root list'.
+[RUN] repos
+Chaotic-AUR already configured in /etc/pacman.conf.
+paru is already installed.
+[RUN] services
+warning: reflector-2023-5 is up to date -- skipping
+warning: flatpak-1:1.16.3-1 is up to date -- skipping
+warning: ufw-0.36.2-7 is up to date -- skipping
+warning: bluez-5.86-2 is up to date -- skipping
+warning: bluez-utils-5.86-2 is up to date -- skipping
+ there is nothing to do
+/home/linuxury/Documents/Arch Linux/scripts/setup-system-extras.sh: line 24: rg: command not found
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+Default outgoing policy changed to 'allow'
+(be sure to update your rules accordingly)
+Firewall is active and enabled on system startup
+System extras setup complete.
+warning: reflector-2023-5 is up to date -- skipping
+ there is nothing to do
+Reflector timer configured and enabled.
+warning: tailscale-1.94.2-1 is up to date -- skipping
+warning: power-profiles-daemon-0.30-1 is up to date -- skipping
+ there is nothing to do
+warning: fwupd-2.0.19-1 is up to date -- skipping
+warning: zram-generator-1.2.1-1 is up to date -- skipping
+ there is nothing to do
+The unit files have no installation config (WantedBy=, RequiredBy=, UpheldBy=,
+Also=, or Alias= settings in the [Install] section, and DefaultInstance= for
+template units). This means they are not meant to be enabled or disabled using systemctl.
+ 
+Possible reasons for having these kinds of units are:
+• A unit may be statically enabled by being symlinked from another unit's
+  .wants/, .requires/, or .upholds/ directory.
+• A unit's purpose may be to act as a helper for some other unit which has
+  a requirement dependency on it.
+• A unit may be started when needed via activation (socket, path, timer,
+  D-Bus, udev, scripted systemctl call, ...).
+• In case of template units, the unit is meant to be enabled with some
+  instance name specified.
+Maintenance setup complete (fwupd + zram-generator).
+warning: openssh-10.2p1-2 is up to date -- skipping
+ there is nothing to do
+No authorized_keys found in /home; kept password auth enabled to avoid lockout.
+After adding SSH keys, rerun with FORCE_SSH_KEY_ONLY=1 for strict mode.
+SSH hardening setup complete.
+[RUN] userland
+warning: topgrade-16.9.0-2 is up to date -- skipping
+ there is nothing to do
+warning: thunderbird-147.0.1-1 is up to date -- skipping
+ there is nothing to do
+warning: firefox-147.0.3-2 is up to date -- skipping
+ there is nothing to do
+warning: helix-25.07.1-1 is up to date -- skipping
+ there is nothing to do
+warning: gnome-disk-utility-46.1-2 is up to date -- skipping
+ there is nothing to do
+warning: flatpak-1:1.16.3-1 is up to date -- skipping
+ there is nothing to do
+warning: loupe-49.2-1 is up to date -- skipping
+ there is nothing to do
+warning: amberol-2025.1-2 is up to date -- skipping
+ there is nothing to do
+warning: showtime-49.1-2 is up to date -- skipping
+ there is nothing to do
+warning: papers-49.4-1 is up to date -- skipping
+ there is nothing to do
+warning: ttf-jetbrains-mono-nerd-3.4.0-2 is up to date -- skipping
+ there is nothing to do
+Installed nerd-fonts: ttf-jetbrains-mono-nerd
+warning: onlyoffice-bin-9.2.1-1 is up to date -- skipping
+ there is nothing to do
+Installed OnlyOffice: onlyoffice-bin
+ there is nothing to do
+Installed Zed: zed
+warning: protonplus-0.5.16-1 is up to date -- skipping
+ there is nothing to do
+:: Resolving dependencies...
+:: fluent-reader-bin-1.1.4-2 is up to date -- skipping
+:: Calculating conflicts...
+:: Calculating inner conflicts...
+ there is nothing to do
+:: Resolving dependencies...
+:: sgdboop-bin-1.3.1-1 is up to date -- skipping
+:: Calculating conflicts...
+:: Calculating inner conflicts...
+ there is nothing to do
+warning: lsfg-vk-git-1.0.0.r139.g997bc66-1 is up to date -- skipping
+ there is nothing to do
+Apps report: installed=17 unavailable=0
+Apps setup complete.
+warning: python-3.14.3-1 is up to date -- skipping
+warning: base-devel-1-2 is up to date -- skipping
+warning: pkgconf-2.5.1-1 is up to date -- skipping
+warning: clang-21.1.8-1 is up to date -- skipping
+resolving dependencies...
+looking for conflicting packages...
+
+Package (21)               New Version  Net Change  Download Size
+
+extra/cppdap               1.58.0-2       1.55 MiB       0.32 MiB
+extra/jsoncpp              1.9.6-3        0.77 MiB       0.16 MiB
+extra/python-argcomplete   3.6.2-2        0.32 MiB       0.07 MiB
+extra/python-attrs         25.4.0-3       0.63 MiB       0.11 MiB
+extra/python-cffi          2.0.0-2        1.38 MiB       0.28 MiB
+extra/python-click         8.3.1-1        1.36 MiB       0.23 MiB
+extra/python-cryptography  46.0.5-2       5.71 MiB       1.30 MiB
+extra/python-distlib       0.4.0-2        1.32 MiB       0.25 MiB
+extra/python-distro        1.9.0-4        0.20 MiB       0.04 MiB
+extra/python-platformdirs  4.9.2-1        0.39 MiB       0.04 MiB
+extra/python-pycparser     2.23-2         2.97 MiB       0.33 MiB
+extra/python-userpath      1.9.2-4        0.08 MiB       0.02 MiB
+extra/python-wheel         0.46.3-1       0.31 MiB       0.07 MiB
+extra/rhash                1.4.6-1        0.34 MiB       0.18 MiB
+extra/cmake                4.2.3-1       92.90 MiB      13.78 MiB
+extra/lldb                 21.1.8-1      28.30 MiB       6.95 MiB
+extra/python-pip           26.0.1-1      16.23 MiB       2.67 MiB
+extra/python-pipx          1.8.0-2        0.90 MiB       0.16 MiB
+extra/python-virtualenv    20.36.1-1      7.04 MiB       4.38 MiB
+extra/rustup               1.28.2-4      11.70 MiB       3.56 MiB
+extra/uv                   0.10.3-1      53.13 MiB      14.59 MiB
+
+Total Download Size:    49.50 MiB
+Total Installed Size:  227.54 MiB
+
+:: Proceed with installation? [Y/n] 
+:: Retrieving packages...
+ uv-0.10.3-1-x86_64 downloading...
+ cmake-4.2.3-1-x86_64 downloading...
+ lldb-21.1.8-1-x86_64 downloading...
+ python-virtualenv-20.36.1-1-any downloading...
+ rustup-1.28.2-4-x86_64 downloading...
+ python-pip-26.0.1-1-any downloading...
+ python-cryptography-46.0.5-2-x86_64 downloading...
+ python-pycparser-2.23-2-any downloading...
+ cppdap-1.58.0-2-x86_64 downloading...
+ python-cffi-2.0.0-2-x86_64 downloading...
+ python-distlib-0.4.0-2-any downloading...
+ python-click-8.3.1-1-any downloading...
+ rhash-1.4.6-1-x86_64 downloading...
+ python-pipx-1.8.0-2-any downloading...
+ jsoncpp-1.9.6-3-x86_64 downloading...
+ python-attrs-25.4.0-3-any downloading...
+ python-argcomplete-3.6.2-2-any downloading...
+ python-wheel-0.46.3-1-any downloading...
+ python-platformdirs-4.9.2-1-any downloading...
+ python-distro-1.9.0-4-any downloading...
+ python-userpath-1.9.2-4-any downloading...
+checking keyring...
+checking package integrity...
+loading package files...
+checking for file conflicts...
+checking available disk space...
+:: Running pre-transaction hooks...
+(1/1) Performing snapper pre snapshots for the following configurations...
+==> root: 96
+:: Processing package changes...
+installing python-attrs...
+installing python-pycparser...
+installing python-cffi...
+Optional dependencies for python-cffi
+    python-setuptools: "limited api" version checking in cffi.setuptools_ext
+installing python-cryptography...
+installing python-wheel...
+Optional dependencies for python-wheel
+    python-keyring: for wheel.signatures
+    python-xdg: for wheel.signatures
+    python-setuptools: for legacy bdist_wheel subcommand
+installing python-pip...
+installing python-distlib...
+installing python-platformdirs...
+installing python-virtualenv...
+installing python-click...
+installing python-distro...
+installing python-userpath...
+installing python-argcomplete...
+installing python-pipx...
+installing uv...
+installing rustup...
+You may need to run rustup update stable
+and possibly also rustup self upgrade-data
+Optional dependencies for rustup
+    lldb: rust-lldb script [pending]
+    gdb: rust-gdb script
+installing cppdap...
+installing jsoncpp...
+Optional dependencies for jsoncpp
+    jsoncpp-doc: documentation
+installing rhash...
+installing cmake...
+Optional dependencies for cmake
+    make: for unix Makefile generator [installed]
+    ninja: for ninja generator
+    qt6-base: cmake-gui [installed]
+installing lldb...
+:: Running post-transaction hooks...
+(1/5) Updating the MIME type database...
+(2/5) Arming ConditionNeedsUpdate...
+(3/5) Updating icon theme caches...
+(4/5) Updating the desktop file MIME type cache...
+(5/5) Performing snapper post snapshots for the following configurations...
+==> root: 97
+Success! Added /root/.local/bin to the PATH environment variable.
+
+Consider adding shell completions for pipx. Run 'pipx completions' for
+instructions.
+
+You will need to open a new terminal or re-login for the PATH changes to take
+effect. Alternatively, you can source your shell's config file with e.g.
+'source ~/.bashrc'.
+
+Otherwise pipx is ready to go! ✨ 🌟 ✨
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
+info: latest update on 2026-02-12, rust version 1.93.1 (01f6ddf75 2026-02-11)
+info: downloading component 'cargo'
+info: downloading component 'clippy'
+info: downloading component 'rust-docs'
+info: downloading component 'rust-std'
+info: downloading component 'rustc'
+info: downloading component 'rustfmt'
+info: installing component 'cargo'
+info: installing component 'clippy'
+info: installing component 'rust-docs'
+info: installing component 'rust-std'
+info: installing component 'rustc'
+info: installing component 'rustfmt'
+
+  stable-x86_64-unknown-linux-gnu installed - rustc 1.93.1 (01f6ddf75 2026-02-11)
+
+info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'
+info: self-update is disabled for this build of rustup
+info: any updates to rustup will need to be fetched with your system package manager
+info: using existing install for 'stable-x86_64-unknown-linux-gnu'
+info: default toolchain set to 'stable-x86_64-unknown-linux-gnu'
+
+  stable-x86_64-unknown-linux-gnu unchanged - rustc 1.93.1 (01f6ddf75 2026-02-11)
+
+info: component 'rustfmt' for target 'x86_64-unknown-linux-gnu' is up to date
+info: component 'clippy' for target 'x86_64-unknown-linux-gnu' is up to date
+info: downloading component 'rust-analyzer'
+info: installing component 'rust-analyzer'
+Dev stack installed (Python + Rust).
+Python quick start: uv init myproj
+Rust quick start: cargo new hello-rust
+warning: steam-1.0.0.85-3 is up to date -- skipping
+warning: gamemode-1.8.2-1 is up to date -- skipping
+warning: mangohud-0.8.2-3 is up to date -- skipping
+warning: winetricks-20260125-1 is up to date -- skipping
+warning: gamescope-3.16.20-1 is up to date -- skipping
+warning: lib32-mesa-1:25.3.5-1 is up to date -- skipping
+warning: lib32-vulkan-icd-loader-1.4.341.0-1 is up to date -- skipping
+warning: vulkan-tools-1.4.341.0-1 is up to date -- skipping
+resolving dependencies...
+looking for conflicting packages...
+:: wine-staging-11.2-1 and wine-11.2-1 are in conflict. Remove wine? [y/N] error: unresolvable package conflicts detected
+error: failed to prepare transaction (conflicting dependencies)
+
+:: wine-staging-11.2-1 and wine-11.2-1 are in conflict
